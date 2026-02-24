@@ -2,6 +2,7 @@ import pytest
 import requests
 from urls import Urls
 from generators import register_new_user_and_return_data
+from data import DefaultIngredients
 
 
 @pytest.fixture
@@ -40,9 +41,10 @@ def ingredient_hashes():
         data = response.json()
         return [ingredient["_id"] for ingredient in data.get("data", [])]
     else:
-        return ["61c0c5a71d1f82001bdaaa6d", "61c0c5a71d1f82001bdaaa6f"]
+        return DefaultIngredients.DEFAULT_HASHES
 
 
 @pytest.fixture
 def invalid_hash():
-    return "invalid1234567890hash"
+    from data import InvalidData
+    return InvalidData.INVALID_HASH
